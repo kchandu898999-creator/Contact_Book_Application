@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+
+{% block title %}Smart Contact Book - Home{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="max-w-6xl mx-auto mb-16 animate-fade-in">
+    <div class="text-center py-16 px-4">
+        <!-- Logo/Icon -->
+        <div class="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-3xl flex items-center justify-center shadow-2xl transform hover:scale-110 transition-transform">
+            <i class="fas fa-address-book text-6xl text-white"></i>
+        </div>
+        
+        <!-- Heading -->
+        <h1 class="text-5xl md:text-6xl font-extrabold mb-6">
+            <span class="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Smart Contact Book</span>
+        </h1>
+        
+        <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+            Organize and manage your personal and professional contacts with ease. 
+            Keep all your important information in one secure place.
+        </p>
+        
+        <!-- CTA Buttons -->
+        {% if not user.is_authenticated %}
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'register' %}" 
+               class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold rounded-xl hover:from-indigo-600 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-lg">
+                <i class="fas fa-user-plus mr-2"></i>Get Started Free
+            </a>
+            <a href="{% url 'login' %}" 
+               class="inline-flex items-center justify-center px-8 py-4 bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-bold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-all text-lg">
+                <i class="fas fa-sign-in-alt mr-2"></i>Login
+            </a>
+            <a href="{% url 'developer' %}" 
+               class="inline-flex items-center justify-center px-8 py-4 bg-indigo-50 dark:bg-gray-700/30 text-indigo-600 dark:text-indigo-400 font-bold rounded-xl hover:bg-indigo-100 dark:hover:bg-gray-700 transition-all text-lg">
+                <i class="fas fa-code mr-2"></i>About Developer
+            </a>
+        </div>
+        {% else %}
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'contact_list' %}" 
+               class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold rounded-xl hover:from-indigo-600 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-lg">
+                <i class="fas fa-users mr-2"></i>View My Contacts
+            </a>
+            <a href="{% url 'contact_add' %}" 
+               class="inline-flex items-center justify-center px-8 py-4 bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-bold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-all text-lg">
+                <i class="fas fa-user-plus mr-2"></i>Add New Contact
+            </a>
+            <a href="{% url 'developer' %}" 
+               class="inline-flex items-center justify-center px-8 py-4 bg-indigo-50 dark:bg-gray-700/30 text-indigo-600 dark:text-indigo-400 font-bold rounded-xl hover:bg-indigo-100 dark:hover:bg-gray-700 transition-all text-lg">
+                <i class="fas fa-code mr-2"></i>About Developer
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Features Grid -->
+<div class="max-w-6xl mx-auto mb-16 animate-fade-in" style="animation-delay: 200ms;">
+    <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">Why Choose Smart Contact Book?</h2>
+        <p class="text-xl text-gray-600 dark:text-gray-400">Powerful features to help you stay organized</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Feature 1 -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 card-hover">
+            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-6">
+                <i class="fas fa-shield-alt text-3xl text-white"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Secure & Private</h3>
+            <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Your data is protected with enterprise-grade security. Only you can access your contacts.</p>
+        </div>
+        
+        <!-- Feature 2 -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 card-hover">
+            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6">
+                <i class="fas fa-bolt text-3xl text-white"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Lightning Fast</h3>
+            <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Quick search, instant access, and smooth navigation. No more waiting around.</p>
+        </div>
+        
+        <!-- Feature 3 -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 card-hover">
+            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mb-6">
+                <i class="fas fa-mobile-alt text-3xl text-white"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Mobile Friendly</h3>
+            <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Access your contacts from any device. Fully responsive design for all screen sizes.</p>
+        </div>
+        
+        <!-- Feature 4 -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 card-hover">
+            <div class="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-2xl flex items-center justify-center mb-6">
+                <i class="fas fa-star text-3xl text-white"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Favorites System</h3>
+            <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Mark important contacts as favorites for quick access. Never lose track of key people.</p>
+        </div>
+        
+        <!-- Feature 5 -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 card-hover">
+            <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6">
+                <i class="fas fa-tags text-3xl text-white"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Smart Categories</h3>
+            <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Organize contacts into custom categories. Family, Friends, Work, and more.</p>
+        </div>
+        
+        <!-- Feature 6 -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 card-hover">
+            <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-blue-500 rounded-2xl flex items-center justify-center mb-6">
+                <i class="fas fa-search text-3xl text-white"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Advanced Search</h3>
+            <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Find any contact instantly with powerful search across name, phone, and email.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Section -->
+<div class="max-w-4xl mx-auto mb-16 animate-fade-in" style="animation-delay: 400ms;">
+    <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-3xl p-12 text-white shadow-2xl relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <i class="fas fa-users text-9xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></i>
+        </div>
+        
+        <div class="relative z-10 grid grid-cols-3 gap-8 text-center">
+            <div>
+                <div class="text-4xl md:text-5xl font-extrabold mb-2">∞</div>
+                <div class="text-indigo-100 font-semibold">Contacts</div>
+            </div>
+            <div>
+                <div class="text-4xl md:text-5xl font-extrabold mb-2">100%</div>
+                <div class="text-indigo-100 font-semibold">Private</div>
+            </div>
+            <div>
+                <div class="text-4xl md:text-5xl font-extrabold mb-2">24/7</div>
+                <div class="text-indigo-100 font-semibold">Access</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CTA Section -->
+<div class="max-w-4xl mx-auto animate-fade-in" style="animation-delay: 600ms;">
+    <div class="bg-white dark:bg-gray-800 rounded-3xl p-12 shadow-2xl border border-gray-200 dark:border-gray-700 text-center">
+        <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">Ready to Get Started?</h2>
+        <p class="text-xl text-gray-600 dark:text-gray-400 mb-8">Join thousands of users managing their contacts smarter</p>
+        
+        {% if not user.is_authenticated %}
+        <a href="{% url 'register' %}" 
+           class="inline-flex items-center px-10 py-5 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold rounded-2xl hover:from-indigo-600 hover:to-purple-700 transition-all shadow-xl hover:shadow-2xl transform hover:-translate-y-1 text-xl">
+            <i class="fas fa-rocket mr-3"></i>Start For Free
+        </a>
+        {% else %}
+        <a href="{% url 'contact_list' %}" 
+           class="inline-flex items-center px-10 py-5 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold rounded-2xl hover:from-indigo-600 hover:to-purple-700 transition-all shadow-xl hover:shadow-2xl transform hover:-translate-y-1 text-xl">
+            <i class="fas fa-th-large mr-3"></i>Go to Dashboard
+        </a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About - Smart Contact Book{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8 animate-fade-in">
+    <!-- Header Section -->
+    <div class="text-center mb-16">
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-6">
+            <span class="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">About Smart Contact Book</span>
+        </h1>
+        <p class="text-xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-2xl mx-auto">
+            Smart Contact Book is a modern web application designed to help you manage your personal and professional contacts efficiently. 
+            Built with speed, security, and simplicity in mind.
+        </p>
+    </div>
+
+    <!-- Features Section -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 text-center transform hover:-translate-y-1 transition-all">
+            <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-id-card text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">CRUD Ops</h3>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">Create, Read, Update, and Delete contacts seamlessly.</p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 text-center transform hover:-translate-y-1 transition-all">
+            <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-shield-alt text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">Secure Auth</h3>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">Your data is safe with robust user authentication.</p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 text-center transform hover:-translate-y-1 transition-all">
+            <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-magic text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">Modern UI</h3>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">Clean, responsive design using Tailwind CSS.</p>
+        </div>
+    </div>
+
+    <!-- Why This App Section -->
+    <div class="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-800 dark:to-gray-800 rounded-3xl p-8 md:p-12 border border-indigo-100 dark:border-gray-700">
+        <div class="flex flex-col md:flex-row items-center gap-8">
+            <div class="flex-1">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Why this app?</h2>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+                    In today's fast-paced digital world, keeping track of your connections shouldn't be a hassle. 
+                    Smart Contact Book was created to bridge the gap between simple address books and complex CRM systems. 
+                    It provides just the right amount of features to keep you organized without the clutter, making it perfect for personal use, freelancers, and small business owners.
+                </p>
+                <div class="flex items-center space-x-4 text-indigo-600 dark:text-indigo-400 font-semibold">
+                    <span class="flex items-center"><i class="fas fa-check-circle mr-2"></i> Fast</span>
+                    <span class="flex items-center"><i class="fas fa-check-circle mr-2"></i> Secure</span>
+                    <span class="flex items-center"><i class="fas fa-check-circle mr-2"></i> Simple</span>
+                </div>
+            </div>
+            <div class="w-48 h-48 bg-white dark:bg-gray-700 rounded-full flex items-center justify-center shadow-xl border-8 border-white dark:border-gray-600">
+                <i class="fas fa-lightbulb text-6xl text-indigo-500"></i>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

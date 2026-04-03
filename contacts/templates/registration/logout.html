@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Logged Out - Contact Book{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-sm border-0 text-center">
+            <div class="card-body p-5">
+                <div class="mb-4">
+                    <i class="fas fa-sign-out-alt text-primary" style="font-size: 4rem;"></i>
+                </div>
+                
+                <h2 class="mb-3">You've Been Logged Out</h2>
+                
+                <p class="text-muted mb-4">
+                    Thank you for using Contact Book. You have been successfully logged out.
+                </p>
+                
+                <div class="d-grid gap-2">
+                    <a href="{% url 'login' %}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-sign-in-alt me-1"></i>Login Again
+                    </a>
+                    <a href="{% url 'home' %}" class="btn btn-outline-secondary">
+                        <i class="fas fa-home me-1"></i>Return to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

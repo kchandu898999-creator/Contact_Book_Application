@@ -1,0 +1,241 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Smart Contact Book{% endblock %}</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'contacts/css/custom.css' %}">
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                        },
+                        indigo: {
+                            500: '#667eea',
+                            600: '#5a67d8',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'slide-in-right': 'slideInRight 0.3s ease-out',
+                        'scale-in': 'scaleIn 0.2s ease-out',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:hidden glass"></div>
+    
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-white dark:bg-gray-800 shadow-2xl z-50 transform -translate-x-full lg:translate-x-0 sidebar-transition border-r border-gray-200 dark:border-gray-700">
+        <!-- Logo -->
+        <div class="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+            <a href="{% url 'home' %}" class="flex items-center space-x-2 group">
+                <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center transform group-hover:scale-110 transition-transform">
+                    <i class="fas fa-address-book text-white text-lg"></i>
+                </div>
+                <span class="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">ContactBook</span>
+            </a>
+            <button id="closeSidebar" class="lg:hidden text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <!-- Navigation -->
+        <nav class="p-4 space-y-2">
+            {% if user.is_authenticated %}
+            <a href="{% url 'home' %}" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-purple-600 hover:text-white transition-all group">
+                <i class="fas fa-home group-hover:scale-110 transition-transform"></i>
+                <span class="font-medium">Dashboard</span>
+            </a>
+            
+            <a href="{% url 'contact_list' %}" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-purple-600 hover:text-white transition-all group">
+                <i class="fas fa-users group-hover:scale-110 transition-transform"></i>
+                <span class="font-medium">My Contacts</span>
+            </a>
+            
+            <a href="{% url 'contact_add' %}" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-purple-600 hover:text-white transition-all group">
+                <i class="fas fa-user-plus group-hover:scale-110 transition-transform"></i>
+                <span class="font-medium">Add Contact</span>
+            </a>
+
+            <div class="pt-4 mt-4 border-t border-gray-200 dark:border-gray-700">
+                <a href="{% url 'about' %}" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-purple-600 hover:text-white transition-all group">
+                    <i class="fas fa-info-circle group-hover:scale-110 transition-transform"></i>
+                    <span class="font-medium">About</span>
+                </a>
+                
+                <a href="{% url 'developer' %}" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-purple-600 hover:text-white transition-all group">
+                    <i class="fas fa-code group-hover:scale-110 transition-transform"></i>
+                    <span class="font-medium">Developer</span>
+                </a>
+            </div>
+
+            <div class="pt-4 mt-4 border-t border-gray-200 dark:border-gray-700">
+                <a href="{% url 'logout' %}" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all group">
+                    <i class="fas fa-sign-out-alt group-hover:scale-110 transition-transform"></i>
+                    <span class="font-medium">Logout</span>
+                </a>
+            </div>
+            {% else %}
+            <a href="{% url 'login' %}" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-purple-600 hover:text-white transition-all group">
+                <i class="fas fa-sign-in-alt group-hover:scale-110 transition-transform"></i>
+                <span class="font-medium">Login</span>
+            </a>
+            
+            <a href="{% url 'register' %}" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-purple-600 hover:text-white transition-all group">
+                <i class="fas fa-user-plus group-hover:scale-110 transition-transform"></i>
+                <span class="font-medium">Register</span>
+            </a>
+            {% endif %}
+        </nav>
+        
+        <!-- User Profile (Bottom) -->
+        {% if user.is_authenticated %}
+        <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 dark:border-gray-700">
+            <a href="{% url 'profile' %}" class="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 cursor-pointer {% if request.resolver_match.url_name == 'profile' %}ring-2 ring-indigo-400/60{% endif %}">
+                <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
+                    {{ user.username|first|upper }}
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-semibold text-gray-900 dark:text-white truncate">{{ user.username }}</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 truncate">{{ user.email }}</p>
+                </div>
+            </a>
+        </div>
+        {% endif %}
+    </aside>
+    
+    <!-- Main Content Wrapper -->
+    <div class="lg:ml-64 min-h-screen">
+        
+        <!-- Top Navbar -->
+        <header class="sticky top-0 z-30 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 glass">
+            <div class="flex items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+                <!-- Left: Sidebar Toggle & Search -->
+                <div class="flex items-center space-x-4 flex-1">
+                    <button id="sidebarToggle" class="lg:hidden p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    
+                    <!-- Search Bar -->
+                    <div class="hidden md:block max-w-md flex-1">
+                        <form method="get" action="{% url 'contact_list' %}" class="relative">
+                            <input 
+                                type="text" 
+                                name="search"
+                                id="searchInput"
+                                value="{{ request.GET.search }}"
+                                placeholder="Search contacts..." 
+                                class="w-full pl-12 pr-4 py-2.5 rounded-full border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                            >
+                            <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Right: Actions -->
+                <div class="flex items-center space-x-3">
+                    <!-- Dark Mode Toggle -->
+                    <button id="themeToggle" class="p-2.5 rounded-xl bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-purple-600 hover:text-white transition-all shadow-sm">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    
+                    {% if user.is_authenticated %}
+                    <!-- Add Contact Button (Mobile) -->
+                    <a href="{% url 'contact_add' %}" class="md:hidden p-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white hover:shadow-lg transition-all">
+                        <i class="fas fa-plus"></i>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </header>
+        
+        <!-- Page Content -->
+        <main class="p-4 sm:p-6 lg:p-8">
+            <!-- Messages/Alerts -->
+            {% if messages %}
+            <div class="mb-6 space-y-3">
+                {% for message in messages %}
+                <div class="alert-dismissible animate-slide-in-down flex items-center p-4 rounded-xl border-l-4 {% if message.tags == 'success' %}bg-green-50 dark:bg-green-900/20 border-green-500 text-green-800 dark:text-green-300{% elif message.tags == 'error' %}bg-red-50 dark:bg-red-900/20 border-red-500 text-red-800 dark:text-red-300{% elif message.tags == 'warning' %}bg-yellow-50 dark:bg-yellow-900/20 border-yellow-500 text-yellow-800 dark:text-yellow-300{% else %}bg-blue-50 dark:bg-blue-900/20 border-blue-500 text-blue-800 dark:text-blue-300{% endif %} shadow-sm">
+                    {% if message.tags == 'success' %}
+                        <i class="fas fa-check-circle me-2"></i>
+                    {% elif message.tags == 'error' %}
+                        <i class="fas fa-exclamation-circle me-2"></i>
+                    {% elif message.tags == 'warning' %}
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                    {% else %}
+                        <i class="fas fa-info-circle me-2"></i>
+                    {% endif %}
+                    <span class="flex-1">{{ message }}</span>
+                    <button type="button" onclick="this.parentElement.remove()" class="ms-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            <!-- Actual Content -->
+            {% block content %}{% endblock %}
+        </main>
+        
+        <!-- Footer -->
+        <footer class="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 mt-auto">
+            <div class="px-4 py-6 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        &copy; {% now "Y" %} <span class="font-semibold text-gradient">Smart Contact Book</span>. Built with Django & Tailwind CSS.
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-indigo-500 transition-colors">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-indigo-500 transition-colors">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-indigo-500 transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="{% static 'contacts/js/main.js' %}"></script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

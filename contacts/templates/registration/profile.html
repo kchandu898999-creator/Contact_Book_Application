@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load form_tags %}
+
+{% block title %}My Profile - Smart Contact Book{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto animate-fade-in">
+    <div class="mb-6">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+            <i class="fas fa-user-cog text-gradient mr-2"></i>My Profile
+        </h1>
+        <p class="text-gray-600 dark:text-gray-400">Update your account details and password securely.</p>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+        <div class="bg-gradient-to-r from-indigo-500 to-purple-600 px-8 py-6">
+            <h2 class="text-xl font-semibold text-white">Profile Settings</h2>
+            <p class="text-indigo-100 text-sm mt-1">Keep your account information up to date.</p>
+        </div>
+
+        <div class="p-8">
+            <form method="post" novalidate class="space-y-6">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                <div class="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-4 rounded-lg">
+                    <div class="flex items-start">
+                        <i class="fas fa-exclamation-circle text-red-500 mr-2 mt-0.5"></i>
+                        <div class="text-red-800 dark:text-red-300">{{ form.non_field_errors }}</div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="{{ form.username.id_for_label }}" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                            <i class="fas fa-user text-indigo-500 mr-2"></i>Username
+                        </label>
+                        {{ form.username|add_class:"w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" }}
+                        {% if form.username.errors %}
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.username.errors|join:", " }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label for="{{ form.email.id_for_label }}" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                            <i class="fas fa-envelope text-purple-500 mr-2"></i>Email
+                        </label>
+                        {{ form.email|add_class:"w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" }}
+                        {% if form.email.errors %}
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.email.errors|join:", " }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                        <i class="fas fa-lock text-blue-500 mr-2"></i>Change Password (Optional)
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="{{ form.new_password1.id_for_label }}" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                                New Password
+                            </label>
+                            {{ form.new_password1|add_class:"w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" }}
+                            {% if form.new_password1.errors %}
+                            <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.new_password1.errors|join:", " }}</p>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <label for="{{ form.new_password2.id_for_label }}" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                                Confirm New Password
+                            </label>
+                            {{ form.new_password2|add_class:"w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" }}
+                            {% if form.new_password2.errors %}
+                            <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ form.new_password2.errors|join:", " }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-3 pt-4">
+                    <button type="submit" class="inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-xl hover:from-indigo-600 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl">
+                        <i class="fas fa-save mr-2"></i>Update Profile
+                    </button>
+                    <a href="{% url 'contact_list' %}" class="inline-flex items-center justify-center px-8 py-3 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-all border border-gray-300 dark:border-gray-600">
+                        <i class="fas fa-arrow-left mr-2"></i>Back to Contacts
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
